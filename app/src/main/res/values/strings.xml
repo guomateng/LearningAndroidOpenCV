@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LearningAndroidOpenCV</string>
+    <string name="action_load_image">Select Photo</string>
 </resources>
