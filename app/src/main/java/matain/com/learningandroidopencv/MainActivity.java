@@ -18,6 +18,7 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private Bitmap mSelectedImage;
     Mat src;
     private static int ACTION_MODE = 1;
-    private double[] kernel = {1,2,1,2,4,2,1,2,1};
 
     private BaseLoaderCallback mOpenCVCallBack = new BaseLoaderCallback(this) {
         @Override
@@ -105,12 +105,26 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(LOG_TAG, "FileNotFoundException E:" + e);
                     }
                     switch (ACTION_MODE){
-                        case HomeActivity.MEAN_BLUR:
-                            Log.d(LOG_TAG, "mean blur");
-                            Imgproc.blur(src, src, new Size(kernel));
+                        case HomeActivity.MEAN_AVERAGE_BLUR:
+                            Log.d(LOG_TAG, "do average blur ..");
+                            Imgproc.blur(src, src, new Size(3,3));
                             break;
-                        case HomeActivity.MEAN_GAUSS:
-                            Log.d(LOG_TAG, "mean guass blur do nothing ....");
+                        case HomeActivity.MEAN_GAUSS_BLUR:
+                            Log.d(LOG_TAG, "do gaussian blur ....");
+                            Imgproc.GaussianBlur(src, src, new Size(3,3),0);
+                            break;
+
+                        case HomeActivity.MEAN_MEDIA_BLUR:
+                            Log.d(LOG_TAG, "do median blur ....");
+                            Imgproc.medianBlur(src,src,7);
+                            break;
+
+                        case HomeActivity.MEAN_FILTER2D:
+                            Log.d(LOG_TAG, "do filter2d  ....");
+                            Mat kernel = new Mat(3,3,CvType.CV_16SC1);
+                            kernel.put(3,3,0,-1,0,-1,5,-1,0,-1,0);
+                            Imgproc.filter2D(src, src, src.depth(),kernel);
+                            Log.d(LOG_TAG, "do filter2d result " + src);
                             break;
                     }
                 }

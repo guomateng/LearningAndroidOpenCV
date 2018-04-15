@@ -5,10 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="matain.com.learningandroidopencv.HomeActivity">
-    <Button
-        android:id="@+id/bMean"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mean Blur"/>
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/bMeanAverage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Average Blur"/>
+        <Button
+                android:id="@+id/bMeanGauss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gauss Blur"/>
+        <Button
+            android:id="@+id/bMeanMedian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Median Blur"/>
+        <Button
+            android:id="@+id/bMeanFilter2D"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filter2D"/>
+    </LinearLayout>>
 
 </android.support.constraint.ConstraintLayout>
