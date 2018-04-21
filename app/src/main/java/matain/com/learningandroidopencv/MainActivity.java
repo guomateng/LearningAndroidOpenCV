@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 
 import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mSrcImageView;
     private ImageView mDstImageView;
     private Bitmap mSelectedImage;
-    Mat src;
+    Mat src, dst;
     private static int ACTION_MODE = 1;
 
     private BaseLoaderCallback mOpenCVCallBack = new BaseLoaderCallback(this) {
@@ -99,32 +100,34 @@ public class MainActivity extends AppCompatActivity {
                         final Uri imageUri = data.getData();
                         final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                         mSelectedImage = BitmapFactory.decodeStream(imageStream);
-                        src = new Mat(mSelectedImage.getHeight(), mSelectedImage.getWidth(), CvType.CV_8UC4);
-                        Utils.bitmapToMat(mSelectedImage, src);
+                        src = new Mat();
+                        dst = new Mat();
+                        Utils.bitmapToMat(mSelectedImage, src,true);
                     }catch (FileNotFoundException e){
                         Log.d(LOG_TAG, "FileNotFoundException E:" + e);
                     }
                     switch (ACTION_MODE){
                         case HomeActivity.MEAN_AVERAGE_BLUR:
                             Log.d(LOG_TAG, "do average blur ..");
-                            Imgproc.blur(src, src, new Size(3,3));
+                            Imgproc.blur(src, dst, new Size(3,3));
                             break;
                         case HomeActivity.MEAN_GAUSS_BLUR:
                             Log.d(LOG_TAG, "do gaussian blur ....");
-                            Imgproc.GaussianBlur(src, src, new Size(3,3),0);
+                            Imgproc.GaussianBlur(src, dst, new Size(3,3),0);
                             break;
 
                         case HomeActivity.MEAN_MEDIA_BLUR:
                             Log.d(LOG_TAG, "do median blur ....");
-                            Imgproc.medianBlur(src,src,7);
+                            Imgproc.medianBlur(src,dst,7);
                             break;
 
                         case HomeActivity.MEAN_FILTER2D:
                             Log.d(LOG_TAG, "do filter2d  ....");
-                            Mat kernel = new Mat(3,3,CvType.CV_16SC1);
+                            dst = new Mat();
+                            Imgproc.cvtColor(src, src, Imgproc.COLOR_BGR2GRAY);
+                            Mat kernel = new Mat(3,3,CvType.CV_8SC1);
                             kernel.put(3,3,0,-1,0,-1,5,-1,0,-1,0);
-                            Imgproc.filter2D(src, src, src.depth(),kernel);
-                            Log.d(LOG_TAG, "do filter2d result " + src);
+                            Imgproc.filter2D(src, dst, src.depth(),kernel);
                             break;
                     }
                 }
@@ -134,9 +137,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showResult(){
-        Bitmap processedImage = Bitmap.createBitmap(src.cols(), src.rows(), Bitmap.Config.ARGB_8888);
-        Utils.matToBitmap(src, processedImage);
-        mSrcImageView.setImageBitmap(mSelectedImage);
-        mDstImageView.setImageBitmap(processedImage);
+        Bitmap srcImage = Bitmap.createBitmap(src.cols(), src.rows(), Bitmap.Config.ARGB_8888);
+        Bitmap dstImage = Bitmap.createBitmap(src.cols(), src.rows(), Bitmap.Config.ARGB_8888);
+        Utils.matToBitmap(src, srcImage);
+        Utils.matToBitmap(dst, dstImage);
+        mSrcImageView.setImageBitmap(srcImage);
+        mDstImageView.setImageBitmap(dstImage);
     }
 }
