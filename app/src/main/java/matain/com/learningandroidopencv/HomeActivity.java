@@ -14,11 +14,13 @@ public class HomeActivity extends AppCompatActivity {
     private Button mGaussBlurButton;
     private Button mMedianBlurButton;
     private Button mFilter2DButton;
+    private Button mDoGButton;
     public static final String KEY_ACTION_MODE = "ACTION_MODE";
     public static final int MEAN_AVERAGE_BLUR = 1;
-    public static final int MEAN_GAUSS_BLUR = 2;
-    public static final int MEAN_MEDIA_BLUR = 3;
-    public static final int MEAN_FILTER2D = 4;
+    public static final int MEAN_GAUSS_BLUR = MEAN_AVERAGE_BLUR + 1;
+    public static final int MEAN_MEDIA_BLUR = MEAN_GAUSS_BLUR + 1;
+    public static final int MEAN_FILTER2D = MEAN_MEDIA_BLUR + 1;
+    public static final int MEAN_DoG = MEAN_FILTER2D + 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,16 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra(KEY_ACTION_MODE, MEAN_FILTER2D);
+                startActivity(intent);
+            }
+        });
+
+        mDoGButton = findViewById(R.id.bDoG);
+        mDoGButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra(KEY_ACTION_MODE, MEAN_DoG);
                 startActivity(intent);
             }
         });
