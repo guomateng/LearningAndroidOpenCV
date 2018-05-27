@@ -5,34 +5,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="matain.com.learningandroidopencv.HomeActivity">
-    <LinearLayout android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Button
-            android:id="@+id/bMeanAverage"
+    <LinearLayout android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+        <LinearLayout android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Average Blur"/>
-        <Button
-                android:id="@+id/bMeanGauss"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/bMeanAverage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gauss Blur"/>
-        <Button
-            android:id="@+id/bMeanMedian"
+                android:text="Average Blur"/>
+            <Button
+                    android:id="@+id/bMeanGauss"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gauss Blur"/>
+            <Button
+                android:id="@+id/bMeanMedian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Median Blur"/>
+            <Button
+                android:id="@+id/bMeanFilter2D"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Filter2D"/>
+            <Button
+                android:id="@+id/bDoG"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DoG"/>
+            <Button
+                android:id="@+id/bCanny"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Canny"/>
+
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Median Blur"/>
-        <Button
-            android:id="@+id/bMeanFilter2D"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Filter2D"/>
-        <Button
-            android:id="@+id/bDoG"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DoG"/>
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/bSoble"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Soble"/>
+            <Button
+                android:id="@+id/bHarrisCorner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HarrisCorner"/>
+        </LinearLayout>>
     </LinearLayout>>
 
 </android.support.constraint.ConstraintLayout>

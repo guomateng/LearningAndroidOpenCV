@@ -20,6 +20,37 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"/>
 
-    </LinearLayout>>
+    </LinearLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
+
+        <SeekBar
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/SeekBarValue"
+            android:maxHeight="2dp"
+            android:minHeight="2dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="12dp"
+            android:max="255"
+            android:progress="100"
+            android:paddingRight="12dp"
+            android:paddingTop="3dp" />
+
+        <TextView
+            android:id="@+id/SeekBarValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="left"
+            android:padding="6dp"
+            android:text="Value:100"
+            android:textColor="#16BC5C"
+            android:textSize="16dp" />
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
